@@ -1,0 +1,7 @@
+import { ExternalLink, Pencil, Trash2 } from 'lucide-react'
+import { formatDate } from '../../utils/scholarshipUtils.js'
+import { StatusBadge } from './StatusBadge.jsx'
+
+export function ScholarshipTable({ scholarships, onEdit, onDelete }) {
+  return <div className="table-wrap"><table><thead><tr><th>SCHOLARSHIP</th><th>STATE / CLASS</th><th>DEADLINE</th><th>STATUS</th><th>PROVIDER</th><th/></tr></thead><tbody>{scholarships.map(item => <tr key={item.id}><td><div className="scholar-name">{item.scholarshipName}</div><div className="scholar-benefit">{item.benefit}</div></td><td><div className="state-name">{item.state}</div><div className="scholar-benefit">{item.applicableClass}</div></td><td>{formatDate(item.deadline)}</td><td><StatusBadge status={item.status}/></td><td><div className="provider-name">{item.providerName}</div>{item.officialLink && <a className="official-link" href={item.officialLink} target="_blank" rel="noreferrer">Visit website <ExternalLink size={12}/></a>}</td><td><div className="row-actions"><button className="icon-button" onClick={() => onEdit(item)} aria-label={`Edit ${item.scholarshipName}`}><Pencil size={15}/></button><button className="icon-button danger-hover" onClick={() => onDelete(item.id)} aria-label={`Delete ${item.scholarshipName}`}><Trash2 size={15}/></button></div></td></tr>)}</tbody></table>{!scholarships.length && <div className="empty-state"><strong>No scholarships found</strong><p>Try changing your search or filters.</p></div>}</div>
+}
